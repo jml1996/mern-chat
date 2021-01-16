@@ -20,5 +20,8 @@
   "homepage": "https://github.com/jml1996/mern-chat#readme",
   "devDependencies": {
     "concurrently": "^5.3.0"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
   }
 }

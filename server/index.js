@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const path = require('path');
+const io = require('socket.io')(http);
 // const io = require('socket.io')(http, {
 //     cors: {
 //     origin: "https://vast-spire-64473.herokuapp.com/",
