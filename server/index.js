@@ -2,7 +2,13 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const path = require('path');
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+    cors: {
+    origin: "localhost:3000",
+    methods: ["GET", "POST"]
+    }
+});
+require('dotenv').config()
 
 const uri = process.env.MONGODB_URI;
 const port = process.env.PORT || 5000;
