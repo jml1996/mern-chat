@@ -79,6 +79,7 @@ function LoginForm(props) {
         console.log(props.currentUsername);
 
         props.history.push("/chat");
+        // HERE
       })
       .catch((err) => {
         setLoginErrors({
