@@ -15,7 +15,8 @@ const server = require("./api/server")
 require('dotenv').config()
 
 
-const uri = process.env.MONGODB_URI || "mongodb+srv://jml1996:lfS7jlSfgcELkkau@cluster0.efwqd.mongodb.net/mern_chat_db_name?retryWrites=true&w=majority";
+// const uri = process.env.MONGODB_URI || "mongodb+srv://jml1996:lfS7jlSfgcELkkau@cluster0.efwqd.mongodb.net/mern_chat_db_name?retryWrites=true&w=majority";
+const uri = process.env.MONGODB_URI;
 const port = process.env.PORT || 5000;
 const port2 = process.env.PORT + 1 || 3000 || 8080 || 8000 || 3001 || 5001 || 8001;
 
