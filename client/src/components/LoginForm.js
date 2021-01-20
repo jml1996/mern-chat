@@ -62,23 +62,24 @@ function LoginForm(props) {
     console.log(credentialsTest);
 
     axios
-      .post("https://mern-chat-login-server.herokuapp.com/api/login", credentialsTest)
-      .then((res) => {
-        console.log(res.data);
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem(
-          "currentUsernameLocalStorage",
-          credentialsTest.username
-        );
-        props.setCurrentUsername();
-        props.history.push("/chat");
-      })
-      .catch((err) => {
-        setLoginErrors({
-          ...loginErrors,
-          password: "You entered an incorrect username or password",
+        // .post("http://localhost:8000/api", credentialsTest)
+        .post("https://mern-chat-login-server.herokuapp.com/api/login", credentialsTest)
+        .then((res) => {
+            console.log(res.data);
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem(
+                "currentUsernameLocalStorage",
+                credentialsTest.username
+            );
+            props.setCurrentUsername();
+            props.history.push("/chat");
+        })
+        .catch((err) => {
+            setLoginErrors({
+            ...loginErrors,
+            password: "You entered an incorrect username or password",
+            });
         });
-      });
     console.log(props.currentUsername);
   };
   useEffect(() => {

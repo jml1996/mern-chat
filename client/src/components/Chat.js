@@ -26,11 +26,13 @@ class Chat extends React.Component {
   // }
 
   componentDidMount() {
-    this.setState({
-      ...this.state,
-      name: this.props.currentUsername
-    })
-    console.log(this.props.currentUsername);
+    const currentUsernameLocalStorage = localStorage.getItem("currentUsernameLocalStorage");
+    this.props.setCurrentUsername(currentUsernameLocalStorage);
+    // this.setState({
+    //   ...this.state,
+    //   name: this.props.currentUsername
+    // })
+    console.log(currentUsernameLocalStorage);
     // this.socket = io(config[process.env.NODE_ENV].endpoint);
     this.socket = io();
 
@@ -48,12 +50,6 @@ class Chat extends React.Component {
         chat: [...state.chat, msg],
       }), this.scrollToBottom);
     });
-  }
-
-  logout() {
-    localStorage.removeItem("token");
-    this.props.setCurrentUsername();
-    // localStorage.removeItem("currentUsernameLocalStorage");
   }
 
   // Save the message the user is typing in the input field.
@@ -98,13 +94,19 @@ class Chat extends React.Component {
   }
 
   render() {
+    const logout = () => {
+      console.log(this.props);
+      localStorage.removeItem("token");
+      localStorage.removeItem("currentUsernameLocalStorage");
+      this.props.setCurrentUsername("");
+    }
     return (
       <div className="Chat">
         <nav className="nav">
             <Link to={"/chat"} style={{ color: "black", textDecoration: "none" }}>
                 <p>Chat</p>
             </Link>
-            <Link to={"/"} onClick={this.logout} style={{ color: "black", textDecoration: "none" }}>
+            <Link to={"/"} onClick={logout} style={{ color: "black", textDecoration: "none" }}>
                 <p>Log Out</p>
             </Link>
         </nav>
