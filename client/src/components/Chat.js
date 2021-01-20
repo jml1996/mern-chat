@@ -5,6 +5,8 @@ import io from 'socket.io-client';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
+import { Link } from "react-router-dom";
+
 import BottomBar from './BottomBar';
 import '../Chat.css';
 
@@ -39,14 +41,18 @@ class Chat extends React.Component {
     });
   }
 
+  logout() {
+    localStorage.removeItem("token");
+    // localStorage.removeItem("currentUsernameLocalStorage");
+  }
+
   // Save the message the user is typing in the input field.
   handleContent(event) {
     this.setState({
       content: event.target.value,
     });
   }
-
-  //
+  
   handleName(event) {
     this.setState({
       name: event.target.value,
@@ -84,6 +90,14 @@ class Chat extends React.Component {
   render() {
     return (
       <div className="Chat">
+        <nav className="nav">
+            <Link to={"/chat"} style={{ color: "black", textDecoration: "none" }}>
+                <p>Chat</p>
+            </Link>
+            <Link to={"/"} onClick={this.logout} style={{ color: "black", textDecoration: "none" }}>
+                <p>Log Out</p>
+            </Link>
+        </nav>
         <Paper id="chat" elevation={3}>
           {this.state.chat.map((el, index) => {
             return (

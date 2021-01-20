@@ -29,27 +29,23 @@ function LoginForm(props) {
   const loginInputChange = (name, value) => {
     yup
       .reach(loginschema, name)
-      .validate(value) // validate this value
+      .validate(value)
       .then(() => {
-        // happy path and clear the error
         setLoginErrors({
           ...loginErrors,
           [name]: "",
         });
       })
-      // if the validation is unsuccessful, we can set the error message to the message
-      // returned from yup (that we created in our schema)
       .catch((err) => {
         setLoginErrors({
           ...loginErrors,
-          // validation error from schema
           [name]: err.errors[0],
         });
       });
 
     setLoginFormValues({
       ...loginFormValues,
-      [name]: value, // NOT AN ARRAY
+      [name]: value,
     });
   };
 
@@ -74,17 +70,14 @@ function LoginForm(props) {
           "currentUsernameLocalStorage",
           credentialsTest.username
         );
-        props.setCurrentUsername();
-
-        console.log(props.currentUsername);
-
         props.history.push("/chat");
-        // HERE
+        // props.setCurrentUsername();
+        // console.log(props.currentUsername);
       })
       .catch((err) => {
         setLoginErrors({
           ...loginErrors,
-          password: "You entered an incorrect username or password.",
+          password: "You entered an incorrect username or password",
         });
       });
   };
@@ -98,43 +91,46 @@ function LoginForm(props) {
 
   return (
     <div>
-      <div className="Form">
-        <div className="errors" style={{ color: "red" }}>
-          {loginErrors.username}
-          <br />
-          {loginErrors.password}
-          <br />
+        <div className="Form">
+            <div className="errors" style={{ color: "red" }}>
+            {loginErrors.username}
+            <br />
+            {loginErrors.password}
+            <br />
+            </div>
+            <form className="form container" onSubmit={login}>
+                <h1>Log in</h1>
+                <label className="name">
+                    Username:
+                    <input
+                    value={loginFormValues.username}
+                    onChange={onChange}
+                    name="username"
+                    type="text"
+                    />
+                </label>
+                <br />
+                <label className="name">
+                    Password:
+                    <input
+                    value={loginFormValues.password}
+                    onChange={onChange}
+                    name="password"
+                    type="password"
+                    />
+                </label>
+                <br />
+                <button className="loginButton" disabled={loginDisabled}>
+                    Login
+                </button>
+            </form>
+            <div className="register">
+            <p>No account yet?</p>
+            <button onClick={() => props.history.push("/register")}>
+                Register
+            </button>
+            </div>
         </div>
-        <form className="form container" onSubmit={login}>
-          <label className="name">
-            Username:
-            <input
-              value={loginFormValues.username}
-              onChange={onChange}
-              name="username"
-              type="text"
-            />
-          </label>
-          <label className="name">
-            Password:
-            <input
-              value={loginFormValues.password}
-              onChange={onChange}
-              name="password"
-              type="password"
-            />
-          </label>
-          <button className="loginButton" disabled={loginDisabled}>
-            Login
-          </button>
-        </form>
-        <div className="register">
-          <p>No account yet?</p>
-          <button onClick={() => props.history.push("/register")}>
-            Register
-          </button>
-        </div>
-      </div>
     </div>
   );
 }

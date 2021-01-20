@@ -87,7 +87,9 @@ function RegisterForm(props) {
       valid && setRegisterErrors(initialRegisterErrors) 
       console.log('useeffect', registerFormValues)
     })
-    .catch();
+    .catch(err => {
+        console.log(err)
+    });
   }, [registerFormValues]);
 
   return (
@@ -100,29 +102,36 @@ function RegisterForm(props) {
           <br />
         </div>
         <form className="form container" onSubmit={register}>
-          <h1>Registration</h1>
-          <label className="name">
-            Username:
-            <input
-              value={registerFormValues.username}
-              onChange={onChange}
-              name="username"
-              type="text"
-            />
-          </label>
-          <label className="name">
-            Password:
-            <input
-              value={registerFormValues.password}
-              onChange={onChange}
-              name="password"
-              type="password"
-            />
-          </label>
-          <button disabled={registerDisabled}>
-            Register
-          </button>
+            <h1>Registration</h1>
+            <label className="name">
+                Username:
+                <input
+                value={registerFormValues.username}
+                onChange={onChange}
+                name="username"
+                type="text"
+                />
+            </label>
+            <br />
+            <label className="name">
+                Password:
+                <input
+                value={registerFormValues.password}
+                onChange={onChange}
+                name="password"
+                type="password"
+                />
+            </label>
+            <br />
+            <button disabled={registerDisabled}>
+                Register
+            </button>
         </form>
+        <br />
+        <p>Already have an account?</p>
+        <button onClick={() => props.history.push("/")}>
+            Log in
+        </button>
       </div>
     </div>
   );
