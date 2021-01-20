@@ -26,6 +26,11 @@ class Chat extends React.Component {
   // }
 
   componentDidMount() {
+    this.setState({
+      ...this.state,
+      name: this.props.currentUsername
+    })
+    console.log(this.props.currentUsername);
     // this.socket = io(config[process.env.NODE_ENV].endpoint);
     this.socket = io();
 
@@ -43,10 +48,6 @@ class Chat extends React.Component {
         chat: [...state.chat, msg],
       }), this.scrollToBottom);
     });
-    this.setState({
-      ...this.state,
-      name: this.props.currentUsername
-    })
   }
 
   logout() {

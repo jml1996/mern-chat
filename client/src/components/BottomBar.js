@@ -52,7 +52,7 @@ function BottomBar(props) {
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
-        <div style={{maxWidth: '200px', display:'flex', flexDirection:'row', justifyContent:'space-evenly'}}>
+        <div style={{maxWidth: '100%', display:'flex', flexDirection:'row', justifyContent:'space-evenly'}}>
           <div>
             {props.currentUsername}
           </div>
