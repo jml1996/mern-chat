@@ -4,8 +4,8 @@ import * as yup from "yup";
 import loginschema from "../schemata/loginschema";
 // import styled from "styled-components";
 
-// import { setCurrentUsername } from "./../actions";
-// import { connect } from "react-redux";
+import { setCurrentUsername } from "./../actions";
+import { connect } from "react-redux";
 
 const initialLoginFormValues = {
   username: "",
@@ -70,9 +70,8 @@ function LoginForm(props) {
           "currentUsernameLocalStorage",
           credentialsTest.username
         );
+        props.setCurrentUsername();
         props.history.push("/chat");
-        // props.setCurrentUsername();
-        // console.log(props.currentUsername);
       })
       .catch((err) => {
         setLoginErrors({
@@ -80,6 +79,7 @@ function LoginForm(props) {
           password: "You entered an incorrect username or password",
         });
       });
+    console.log(props.currentUsername);
   };
   useEffect(() => {
     loginschema.isValid(loginFormValues).then((valid) => {
@@ -135,7 +135,15 @@ function LoginForm(props) {
   );
 }
 
-export default LoginForm;
+const mapStateToProps = (state) => {
+    return {
+      currentUsername: state.currentUsername,
+    };
+};
+
+export default connect(mapStateToProps, { setCurrentUsername })(LoginForm);
+
+// export default LoginForm;
 
 // const mapStateToProps = (state) => {
 //   return {

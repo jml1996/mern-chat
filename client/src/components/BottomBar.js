@@ -8,8 +8,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import ChatIcon from '@material-ui/icons/Chat';
 import FaceIcon from '@material-ui/icons/Face';
 
+import { setCurrentUsername } from "./../actions";
+import { connect } from "react-redux";
+
 const useStyles = makeStyles(theme => ({
   appBar: {
+    backgroundColor: 'gray',
     bottom: 0,
     top: 'auto',
   },
@@ -34,33 +38,24 @@ const useStyles = makeStyles(theme => ({
   },
   inputRoot: {
     color: 'inherit',
+    width: 'auto',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 7),
-    width: '100%',
-  },
+    width: '100%',  },
 }));
 
-export default function BottomBar(props) {
+function BottomBar(props) {
   const classes = useStyles();
+  console.log(props.currentUsername);
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
-        <div className={classes.inputContainer} style={{maxWidth: '200px'}}>
-          <div className={classes.icon}>
-            <FaceIcon />
+        <div style={{maxWidth: '200px', display:'flex', flexDirection:'row', justifyContent:'space-evenly'}}>
+          <div>
+            {props.currentUsername}
           </div>
-          <InputBase
-            onChange={props.handleName}
-            value={props.name}
-            placeholder="Name"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            inputProps={{ 'aria-label': 'name' }}
-          />
         </div>
         <div className={classes.inputContainer}>
           <form onSubmit={props.handleSubmit}>
@@ -83,3 +78,11 @@ export default function BottomBar(props) {
     </AppBar>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    currentUsername: state.currentUsername,
+  };
+};
+
+export default connect(mapStateToProps, { setCurrentUsername })(BottomBar);

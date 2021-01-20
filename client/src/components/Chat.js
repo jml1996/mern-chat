@@ -10,16 +10,20 @@ import { Link } from "react-router-dom";
 import BottomBar from './BottomBar';
 import '../Chat.css';
 
-class Chat extends React.Component {
-  constructor(props) {
-    super(props);
+import { setCurrentUsername } from "./../actions";
+import { connect } from "react-redux";
 
-    this.state = {
-      chat: [],
-      content: '',
-      name: '',
-    };
-  }
+class Chat extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.
+  state = {
+    chat: [],
+    content: '',
+    name: this.props.currentUsername,
+  };
+
+  // }
 
   componentDidMount() {
     // this.socket = io(config[process.env.NODE_ENV].endpoint);
@@ -39,10 +43,15 @@ class Chat extends React.Component {
         chat: [...state.chat, msg],
       }), this.scrollToBottom);
     });
+    this.setState({
+      ...this.state,
+      name: this.props.currentUsername
+    })
   }
 
   logout() {
     localStorage.removeItem("token");
+    this.props.setCurrentUsername();
     // localStorage.removeItem("currentUsernameLocalStorage");
   }
 
@@ -53,11 +62,11 @@ class Chat extends React.Component {
     });
   }
   
-  handleName(event) {
-    this.setState({
-      name: event.target.value,
-    });
-  }
+  // handleName(event) {
+  //   this.setState({
+  //     name: event.target.value,
+  //   });
+  // }
 
   handleSubmit(event) {
     // Prevent the form to reload the current page.
@@ -115,13 +124,19 @@ class Chat extends React.Component {
         <BottomBar
           content={this.state.content}
           handleContent={this.handleContent.bind(this)}
-          handleName={this.handleName.bind(this)}
-          handleSubmit={this.handleSubmit.bind(this)}
           name={this.state.name}
+          handleSubmit={this.handleSubmit.bind(this)}
+          // name={this.state.name}
         />
       </div>
     );
   }
 };
 
-export default Chat;
+const mapStateToProps = (state) => {
+  return {
+    currentUsername: state.currentUsername,
+  };
+};
+
+export default connect(mapStateToProps, { setCurrentUsername })(Chat);
