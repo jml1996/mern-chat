@@ -118,7 +118,7 @@ function LoginForm(props) {
                 "currentUsernameLocalStorage",
                 credentialsTest.username
             );
-            props.setCurrentUsername();
+            // props.setCurrentUsername(credentialsTest.username);
             props.history.push("/chat");
         })
         .catch((err) => {

@@ -28,11 +28,16 @@ class Chat extends React.Component {
   componentDidMount() {
     const currentUsernameLocalStorage = localStorage.getItem("currentUsernameLocalStorage");
     this.props.setCurrentUsername(currentUsernameLocalStorage);
+    this.setState({
+      ...this.state,
+      name: currentUsernameLocalStorage
+    })
     // this.setState({
     //   ...this.state,
     //   name: this.props.currentUsername
     // })
-    console.log(currentUsernameLocalStorage);
+    console.log(this.props.currentUsername);
+    console.log(this.state);
     // this.socket = io(config[process.env.NODE_ENV].endpoint);
     this.socket = io();
 
@@ -59,11 +64,11 @@ class Chat extends React.Component {
     });
   }
   
-  // handleName(event) {
-  //   this.setState({
-  //     name: event.target.value,
-  //   });
-  // }
+  handleName(event) {
+    this.setState({
+      ...this.state
+    });
+  }
 
   handleSubmit(event) {
     // Prevent the form to reload the current page.
@@ -112,6 +117,7 @@ class Chat extends React.Component {
         </nav>
         <Paper id="chat" elevation={3}>
           {this.state.chat.map((el, index) => {
+            console.log(el)
             return (
               <div key={index}>
                 <Typography variant="caption" className="name">
@@ -127,8 +133,9 @@ class Chat extends React.Component {
         <BottomBar
           content={this.state.content}
           handleContent={this.handleContent.bind(this)}
-          name={this.state.name}
+          // name={this.state.name}
           handleSubmit={this.handleSubmit.bind(this)}
+          // handleName={this.handleName.bind(this)}
           // name={this.state.name}
         />
       </div>
