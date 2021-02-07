@@ -3,20 +3,22 @@ const app = express();
 const http = require('http').Server(app);
 
 const path = require('path');
-// const io = require('socket.io')(http);
-const io = require('socket.io')(http, {
-    cors: {
-    origin: "https://vast-spire-64473.herokuapp.com/",
-    methods: ["GET", "POST"]
-    }
-});
-const server = require("./api/server")
+const io = require('socket.io')(http);
+// const io = require('socket.io')(http, {
+//     cors: {
+//     origin: "https://vast-spire-64473.herokuapp.com/",
+//     methods: ["GET", "POST"]
+//     }
+// });
+
+
+// const server2 = require("./api/server")
 
 require('dotenv').config()
 
 
-// const uri = process.env.MONGODB_URI || "mongodb+srv://jml1996:lfS7jlSfgcELkkau@cluster0.efwqd.mongodb.net/mern_chat_db_name?retryWrites=true&w=majority";
-const uri = process.env.MONGODB_URI;
+const uri = process.env.MONGODB_URI || "mongodb+srv://jml1996:lfS7jlSfgcELkkau@cluster0.efwqd.mongodb.net/mern_chat_db_name?retryWrites=true&w=majority";
+// const uri = process.env.MONGODB_URI;
 const port = process.env.PORT || 5000;
 const port2 = process.env.PORT + 1 || 3000 || 8080 || 8000 || 3001 || 5001 || 8001;
 
@@ -63,6 +65,6 @@ http.listen(port, () => {
   console.log('listening on *:' + port);
 });
 
-server.listen(port2, () => {
-    console.log(`Server is running on ${port2}`)
-})
+// server2.listen(port2, () => {
+//     console.log(`Server is running on ${port2}`)
+// })
