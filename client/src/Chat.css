@@ -7,6 +7,7 @@ body {
   max-height: calc(100vh - 128px);
   overflow: scroll;
   padding: 16px;
+  padding-bottom: 6%;
 }
 
 .name {
