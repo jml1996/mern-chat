@@ -3,13 +3,13 @@ const app = express();
 const http = require('http').Server(app);
 
 const path = require('path');
-const io = require('socket.io')(http);
-// const io = require('socket.io')(http, {
-//     cors: {
-//     origin: "https://vast-spire-64473.herokuapp.com/",
-//     methods: ["GET", "POST"]
-//     }
-// });
+// const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+    cors: {
+    origin: "https://vast-spire-64473.herokuapp.com/",
+    methods: ["GET", "POST"]
+    }
+});
 const server = require("./api/server")
 
 require('dotenv').config()
